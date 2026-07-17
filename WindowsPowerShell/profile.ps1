@@ -1,4 +1,4 @@
-# UTF-8
+# Minimal profile: UTF‑8 + Oh My Posh (if installed) + Fastfetch with explicit config path
 try {
     [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -8,9 +8,7 @@ try {
 
 Clear-Host
 
-# Fastfetch
-$config = Join-Path $env:Harshit ".config\fastfetch\config.jsonc"
-
-if ((Get-Command fastfetch -ErrorAction SilentlyContinue) -and (Test-Path $config)) {
-    fastfetch --load-config $config
+# Force Fastfetch to use YOUR config every time (bypass path confusion)
+if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
+    fastfetch -c "C:/Users/%USERPROFILE%/.config/fastfetch/config.jsonc"
 }
